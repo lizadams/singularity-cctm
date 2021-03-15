@@ -8,6 +8,7 @@ This will create a directory named “singularity-cctm” and will contain the f
 
 ```
 singularity-cctm-liz.csh
+applydiff
 gcc9.def
 gcc9-ioapi.def
 gcc9-cmaq-liz.def
