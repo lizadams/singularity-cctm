@@ -10,7 +10,7 @@ Add IOAPI to the GCC9 image
 
 # Files to copy from host system to container
 %files
-  /home/centos/singularity_eanderso/applydiff /usr/local/bin/applydiff
+  applydiff /usr/local/bin/applydiff
 
 # Environment variables to set
 %environment
