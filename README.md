@@ -48,10 +48,11 @@ To BUILD a new container singularity container using the definition files you ne
 
 Run the following commands: (note you may need to modify the path to singularity)
 
-First, build the base container with the compiler and mpi layer
+First, build the base container with: compiler (g++ (GCC) 9.3.0), mpi layer (openmpi-3.1.4), netCDF (netcdf-c-4.7.1),
+(netcdf-fortran-4.5.2), PnetCDF Version 1.11.2, 
 
 > sudo /usr/local/bin/singularity build gcc9.sif gcc9.def
-
+(this step took 25 minutes)
 
 Second, build the I/O API Layer
 
@@ -77,3 +78,55 @@ From: gcc9.sif
 ```
 
 As long as the gcc9.sif container is in the directory that you are running the build command from, then it will find it, without the need for a full path.
+
+
+Note: here are the Open MPI configuration details for this container build:
+Open MPI configuration:
+-----------------------
+Version: 3.1.4
+Build MPI C bindings: yes
+Build MPI C++ bindings (deprecated): yes
+Build MPI Fortran bindings: mpif.h, use mpi, use mpi_f08
+MPI Build Java bindings (experimental): no
+Build Open SHMEM support: yes
+Debug build: no
+Platform file: (none)
+
+Miscellaneous
+-----------------------
+CUDA support: no
+PMIx support: internal
+ 
+Transports
+-----------------------
+Cisco usNIC: no
+Cray uGNI (Gemini/Aries): no
+Intel Omnipath (PSM2): no
+Intel SCIF: no
+Intel TrueScale (PSM): no
+Mellanox MXM: no
+Open UCX: no
+OpenFabrics OFI Libfabric: no
+OpenFabrics Verbs: no
+Portals4: no
+Shared memory/copy in+copy out: yes
+Shared memory/Linux CMA: yes
+Shared memory/Linux KNEM: no
+Shared memory/XPMEM: no
+TCP: yes
+ 
+Resource Managers
+-----------------------
+Cray Alps: no
+Grid Engine: no
+LSF: no
+Moab: no
+Slurm: yes
+ssh/rsh: yes
+Torque: no
+ 
+OMPIO File Systems
+-----------------------
+Generic Unix FS: yes
+Lustre: no
+PVFS2/OrangeFS: no
