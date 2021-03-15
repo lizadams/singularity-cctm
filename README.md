@@ -22,6 +22,7 @@ set CONTAINER = $cwd/gcc9-cmaq-liz.sif
 ```
 
 Note: you can obtain the container from the following google drive, or, you can build the container using the definition files and by following the instructions below.
+https://drive.google.com/drive/u/1/folders/1HOEykpAhhbTU7tFjtrxcuh4yrOncFySP
 
 To run the container, execute the command.
 
