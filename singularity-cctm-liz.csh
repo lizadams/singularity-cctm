@@ -12,7 +12,7 @@ set CONTAINER = $cwd/gcc9-cmaq-liz.sif
 #   Set up environment for MPI-version ("mpich", "mvapich", or "openmpi"),
 #   verbose-level and/or debug:
 
-setenv SINGULARITYENV_CTM_DIAG_LVL  2
+setenv SINGULARITYENV_CTM_DIAG_LVL  0
 setenv SINGULARITYENV_MPIVERSION   openmpi
 
 unsetenv SINGULARITYENV_DEBUG
