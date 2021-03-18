@@ -53,6 +53,7 @@ First, build the base container with: compiler (g++ (GCC) 9.3.0), mpi layer (ope
 (netcdf-fortran-4.5.2), PnetCDF Version 1.11.2, 
 
 > sudo /usr/local/bin/singularity build gcc9.sif gcc9.def
+
 (this step took 25 minutes)
 
 Second, build the I/O API Layer
@@ -60,6 +61,7 @@ Second, build the I/O API Layer
 
 > sudo /usr/local/bin/singularity build gcc9-ioapi.sif gcc9-ioapi.def
 
+(this step took 2 minutes)
 
 Third, build the CMAQv5.3.2 Layer
 
