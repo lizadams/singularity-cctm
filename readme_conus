@@ -1,0 +1,63 @@
+# If you are runnning to conus domain after copying the input files from the S3 bucket
+# there is a file missing from the conus S3 bucket
+
+cp smk_merge_dates_201512.txt /home/centos/CONUS/12US2/emissions
+
+
+To copy the files from the S3 bucket
+
+Install the AWS CLI
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+cd
+Create your credentials
+mkdir .aws
+cd .aws
+vi credentials
+ls -rlt
+chmod o-r credentials 
+chmod g-rw credentials 
+
+Note wildcards don't work in the aws s3 command
+list files in the S3 bucket
+To see the total amount of disk space for all input data
+aws s3 ls --recursive s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/ --human-readable --summarize
+Total Objects: 714
+   Total Size: 461.8 GiB
+
+To conserve disk space, I only copied two days of the MCIP data
+aws s3 ls  s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/MCIP/METDOT3D.12US2.35L.160131 --human-readable --summarize
+aws s3 ls  s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/MCIP/METDOT3D.12US2.35L.151222 --human-readable --summarize
+
+For 20151222
+aws s3 cp s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/MCIP/GRIDDOT2D.12US2.35L.151222 .
+aws s3 cp s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/MCIP/GRIDCRO2D.12US2.35L.151222 .
+aws s3 cp s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/MCIP/GRIDBDY2D.12US2.35L.151222 .
+aws s3 cp s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/MCIP/METCRO2D.12US2.35L.151222 .
+aws s3 cp s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/MCIP/METDOT3D.12US2.35L.151222 .
+aws s3 cp s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/MCIP/METCRO3D.12US2.35L.151222 .
+aws s3 cp s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/MCIP/METBDY3D.12US2.35L.151222 .
+
+for 20151223
+aws s3 cp s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/MCIP/GRIDDOT2D.12US2.35L.151223 .
+aws s3 cp s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/MCIP/GRIDCRO2D.12US2.35L.151223 .
+aws s3 cp s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/MCIP/GRIDBDY2D.12US2.35L.151223 .
+aws s3 cp s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/MCIP/METCRO2D.12US2.35L.151223 .
+aws s3 cp s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/MCIP/METDOT3D.12US2.35L.151223 .
+aws s3 cp s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/MCIP/METCRO3D.12US2.35L.151223 .
+aws s3 cp s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/MCIP/METBDY3D.12US2.35L.151223 .
+
+
+Copy emissions files in the S3 Bucket
+aws s3 cp s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/emissions .
+aws s3 cp s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/beld3_12US1_459X299_output_a.ncf .
+aws s3 ls --recursive s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/emissions --human-readable --summarize
+aws s3 ls s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/beld3_12US1_459X299_output_a.ncf --human-readable --summarize
+aws s3 cp s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/beld3_12US1_459X299_output_a.ncf .
+aws s3 cp --recursive s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/emissions .
+
+To run the job rebuild the container and
+sudo /usr/local/bin/singularity build gcc9-cmaq-liz.sif gcc9-cmaq-liz.def
+
+./singularity-cctm-conus.csh |& tee ./singularity-cctm-conus.log
