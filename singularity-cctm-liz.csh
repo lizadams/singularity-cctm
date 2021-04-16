@@ -4,6 +4,7 @@
 #   Not for batch use on "longleaf.unc.edu" etc. servers (see ../Scripts-BATCH)
 #*********************************************************************
 # Data directory on host:  mounts onto container-directory "/opt/CMAQ_532/data"
+setenv compiler gcc
 
 set HOSTDATA  = /home/centos/CMAQv5.3.2_Benchmark_2Day_Input
 set CONTAINER = $cwd/gcc9-cmaq-liz.sif
@@ -14,9 +15,10 @@ set CONTAINER = $cwd/gcc9-cmaq-liz.sif
 
 setenv SINGULARITYENV_CTM_DIAG_LVL  0
 setenv SINGULARITYENV_MPIVERSION   openmpi
+setenv SINGULARITYENV_COMPILER gcc
 
-unsetenv SINGULARITYENV_DEBUG
-unsetenv SINGULARITYENV_EXEC
+#setenv SINGULARITYENV_DEBUG N
+#setenv SINGULARITYENV_EXEC /usr/local/src/CMAQ_REPO/CCTM/scripts/BLD_CCTM_v532_gcc/CCTM_v532.exe
 
 setenv SINGULARITYENV_APPEND_PATH /usr/local/src/ioapi-3.2/Linux2_x86_64
 
