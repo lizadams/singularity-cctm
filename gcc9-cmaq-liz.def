@@ -28,8 +28,8 @@ ulimit -s unlimited
    else
       export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
    fi
-   yum install bc
-   yum install time
+#   yum install bc
+#   yum install time
 export IOAPI_DIR=/usr/local
 export NETCDF_DIR=/usr/local
 export NETCDFF_DIR=/usr/local

@@ -4,8 +4,8 @@
 #*********************************************************************
 #   Data directory on host:  mounts onto container-directory "/opt/CMAQ_REPO/data"
 
-set HOSTDATA = /home/centos/CONUS
-set CONTAINER = /home/centos/singularity-cctm/gcc9-cmaq-liz.sif
+set HOSTDATA = /shared/build/CMAQv5.3.2_Benchmark_2Day_Input
+set CONTAINER = /shared/singularity-cctm/gcc9-cmaq-liz.sif
 
 #   Set up environment variables such as START_DATE, below.
 
