@@ -1,5 +1,24 @@
 # singularity-cctm
 
+Note: this requires that singularity is intalled
+To install use the following command
+
+```
+sudo yum update -y && \
+    sudo yum install -y epel-release && \
+    sudo yum update -y && \
+    sudo yum install -y singularity-runtime singularity
+```
+
+you likely need to exit out of shell to get the path
+Then check the version
+
+```
+singularity --version
+```
+    2.6.0-dist
+
+
 Please obtain the following files from github using the git command:
 
 git clone https://github.com/lizadams/singularity-cctm.git
@@ -52,20 +71,20 @@ Run the following commands: (note you may need to modify the path to singularity
 First, build the base container with: compiler (g++ (GCC) 9.3.0), mpi layer (openmpi-3.1.4), netCDF (netcdf-c-4.7.1),
 (netcdf-fortran-4.5.2), PnetCDF Version 1.11.2, 
 
-> sudo /usr/local/bin/singularity build gcc9.sif gcc9.def
+> sudo singularity build gcc9.sif gcc9.def
 
 (this step took 25 minutes)
 
 Second, build the I/O API Layer
 
 
-> sudo /usr/local/bin/singularity build gcc9-ioapi.sif gcc9-ioapi.def
+> sudo singularity build gcc9-ioapi.sif gcc9-ioapi.def
 
 (this step took 2 minutes)
 
 Third, build the CMAQv5.3.2 Layer
 
->  sudo /usr/local/bin/singularity build gcc9-cmaq-liz.sif gcc9-cmaq-liz.def
+>  sudo singularity build gcc9-cmaq-liz.sif gcc9-cmaq-liz.def
 
 Note, if there is a path at the top of the definition files such as:
 
