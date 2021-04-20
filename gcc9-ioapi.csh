@@ -1,4 +1,5 @@
 #!/bin/csh -f
+set echo
 
 #  --------------------------------------
 #  Add /usr/local/lib to the library path
@@ -12,18 +13,20 @@
 #  ----------------------
 #  Unpack and build IOAPI
 #  ----------------------
-   cd /home/centos/build
-   git clone --branch 20200828 https://github.com/cjcoats/ioapi-3.2.git
+   cd /shared/build
+   git clone https://github.com/cjcoats/ioapi-3.2
+   cd ioapi-3.2
+   git checkout -b 20200828
 #  -------------------------------------------
 #  Add -fPIC so we can create a shared library
 #  and disable openmp because not used in CMAQ
-#  -------------------------------------------
-   cd ioapi-3.2
-   cp -p Makefile.template Makefile
-   setenv BIN Linux2_x86_64
-   setenv BASEDIR /home/centos/build/ioapi-3.2
-   setenv CPLMODE nocpl
+#  
+#   -------------------------------------------
    cd ioapi
+   setenv BIN Linux2_x86_64
+   mkdir ../$BIN
+   setenv BASEDIR /shared/ioapi-3.2
+   setenv HOME /shared/build
    cat >fpicfix <<EOF
 27c27
 < MFLAGS    = -fPIC -m64
@@ -36,16 +39,14 @@
 > OMPFLAGS  = -fopenmp
 > OMPLIBS   = -fopenmp
 EOF
-   /home/centos/build/applydiff Makeinclude.Linux2_x86_64 fpicfix -R
+   /shared/singularity-cctm/applydiff Makeinclude.Linux2_x86_64 fpicfix -R
    #cd ..
    cp Makefile.nocpl Makefile
-   export HOME=/usr/local/src
-   mkdir ../$BIN
-   make > make.gcc9.log 2>&1
+   make >& make.ioapi.log
    cd ..
    cd m3tools
    cp Makefile.nocpl Makefile
-   make > make.m3tools 2>&1
+   make >& make.m3tools
    cd ..
    mkdir lib bin
    cd Linux2_x86_64
@@ -55,20 +56,17 @@ EOF
    mv *.a ../lib
    cd ../Linux2_x86_64
    ls -1 ../bin | xargs -I % sh -c 'ln -s ../bin/% %'
-   cd ../lib
-   ld -o libioapi.so -shared --whole-archive libioapi.a
    cd ../Linux2_x86_64
    ln -s ../lib/libioapi.a
-   ln -s ../lib/libioapi.so
    cd ..
-   sudo cp -p bin/* /usr/local/bin
-   sudo cp -p lib/* /usr/local/lib
-   sudo cp -p Linux2_x86_64/*.mod /usr/local/include
+   sudo cp -p bin/* /usr/lib64/bin
+   sudo cp -p lib/* /usr/lib64/lib
+   sudo cp -p Linux2_x86_64/*.mod /usr/lib64/include
 #  -------------------------------------------------------
 #  Only crusty old fixed source code should need the IOAPI
 #  EXT files. Newer code should be USE-ing a module.
 #  -------------------------------------------------------
-   sudo cp -p ioapi/fixed_src/*.EXT /usr/local/include
+   sudo cp -p ioapi/fixed_src/*.EXT /usr/include
 
 #Note: when I tried to use m3diff, it complained
 #m3diff: error while loading shared libraries: libgfortran.so.5: cannot open shared object file: No such file or directory
