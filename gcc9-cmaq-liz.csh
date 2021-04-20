@@ -3,13 +3,11 @@
 #  -----------------------
 #  Download and build CMAQ
 #  -----------------------
-setenv IOAPI_DIR /usr/local
-setenv NETCDF_DIR /usr/local
-setenv NETCDFF_DIR /usr/local
-setenv PNETCDF_DIR /usr/local
-setenv MPI_DIR /usr/local
-cd /home/centos/build/
-#git clone -b 5.3.2_singularity https://github.com/lizadams/CMAQ.git CMAQ_REPO
+setenv IOAPI_DIR /shared/build/ioapi-3.2/lib
+setenv NETCDF_DIR /usr/lib64/netcdf/lib
+setenv NETCDFF_DIR /usr/lib64/netcdff/lib
+cd /shared/build/
+git clone -b 5.3.2_singularity https://github.com/lizadams/CMAQ.git CMAQ_REPO
 echo "downloaded CMAQ"
 cd CMAQ_REPO
 setenv CMAQ_HOME $PWD
@@ -26,9 +24,9 @@ cat >blditfix <<EOF
 >  #set CMAQ_HOME = [your_install_path]/openmpi_4.0.1_gcc_9.1.0_debug
 >  set CMAQ_HOME = /home/username/CMAQ_Project
 EOF
-/home/centos/build/applydiff bldit_project.csh blditfix -R
+/shared/singularity-cctm/applydiff bldit_project.csh blditfix -R
 echo "ran applydiff"
-setenv HOME /home/centos
+setenv HOME /shared/build
 #./bldit_project.csh
 #  -----------------------------------------------------------
 #  Use the settings of IOAPI_DIR and NETCDF_DIR instead of
@@ -70,11 +68,10 @@ setenv HOME /home/centos
 >  setenv MPI_DIR     \$CMAQ_LIB/mpi
 >  setenv NETCDF_DIR  \$CMAQ_LIB/netcdf
 >  setenv NETCDFF_DIR \$CMAQ_LIB/netcdff
->  setenv PNETCDF_DIR \$CMAQ_LIB/pnetcdf
 >  setenv IOAPI_DIR   \$CMAQ_LIB/ioapi
 172,187c204,215
 <
-< #> Check that NETCDF_DIR, IOAPI_DIR, and PNETCDF_DIR were set, error if not
+< #> Check that NETCDF_DIR, IOAPI_DIR, and NETCDFF_DIR were set, error if not
 <  if (! \$?NETCDF_DIR) then
 <     echo "ERROR: NETCDF_DIR has not been set, install netCDF and set this variable before proceeding."
 <     exit
@@ -86,9 +83,6 @@ setenv HOME /home/centos
 <     echo "ERROR: IOAPI_DIR has not been set, install IOAPI and set this variable before proceeding."
 <     exit
 <  endif
-<  if (! \$?PNETCDF_DIR) then
-<     echo "ERROR: PNETCDF_DIR has not been set, install PNETCDF and set this variable before proceeding."
-<     exit
 ---
 >  if (   -e \$MPI_DIR  ) rm -rf \$MPI_DIR
 >      ln -s \$MPI_LIB_DIR \$MPI_DIR
@@ -121,7 +115,7 @@ setenv HOME /home/centos
 >  if ( ! -e \$IOAPI_DIR/lib/m3utilio.mod ) then
 >     echo "ERROR: \$IOAPI_MOD_DIR/m3utilio.mod does not exist in your CMAQ_LIB directory!!! Check your installation before proceeding with CMAQ build."
 EOF
-/home/centos/build/applydiff config_cmaq.csh configfix -R
+/shared/singularity-cctm/applydiff config_cmaq.csh configfix -R
 #  -----------------------------------------------
 #  Fix the build scripts to remove redundant paths
 #  -----------------------------------------------
@@ -145,20 +139,18 @@ cat >cfgfix <<EOF
 >       Character( FLD_LEN ) :: netcdff_lib_dir
 >       Character( FLD_LEN ) :: mpi_lib_dir
 EOF
-/home/centos/build/applydiff cfg_module.f cfgfix -R
+/shared/singularity-cctm/applydiff cfg_module.f cfgfix -R
 cat >bldmakefix <<EOF
-313,317c313,317
+313,316c313,316
 <       Call GETENV( 'IOAPI_DIR', ioapi_dir )
 <       Call GETENV( 'NETCDF_DIR', netcdf_dir )
 <       Call GETENV( 'NETCDFF_DIR', netcdff_dir )
 <       Call GETENV( 'MPI_DIR',    mpi_dir )
-<       Call GETENV( 'PNETCDF_DIR', pnetcdf_dir )
 ---
 >       Call GETENV( 'IOAPI_INCL_DIR', ioapi_incl_dir )
 >       Call GETENV( 'IOAPI_LIB_DIR',  ioapi_lib_dir )
 >       Call GETENV( 'NETCDF_LIB_DIR', netcdf_lib_dir )
 >       Call GETENV( 'NETCDFF_LIB_DIR', netcdff_lib_dir )
->       Call GETENV( 'MPI_LIB_DIR',    mpi_lib_dir )
 319,323c319,323
 <       Write( lfn, '("#      IOAPI:     ",a)' ) Trim( ioapi_dir )
 <       Write( lfn, '("#      NETCDF:    ",a)' ) Trim( netcdf_dir )
@@ -223,7 +215,7 @@ cat >bldmakefix <<EOF
 ---
 >                   Write( lfn, '(1x,a," = ",a)' ) pathMacro( i ), "\$(LIB)/mpi/include"
 EOF
-/home/centos/build/applydiff bldmake.f bldmakefix -R
+/shared/singularity-cctm/applydiff bldmake.f bldmakefix -R
 #
 #  BCON
 #
@@ -240,7 +232,7 @@ cat >blditfix << EOF
 >  set xLib_2     = ioapi/include_files
 >  set xLib_4     = ioapi/lib
 EOF
-/home/centos/build/applydiff bldit_bcon.csh blditfix -R
+/shared/singularity-cctm/applydiff bldit_bcon.csh blditfix -R
 ./bldit_bcon.csh gcc >& bldit_bcon.log
 #
 #  ICON
@@ -258,7 +250,7 @@ cat >blditfix << EOF
 >  set xLib_2     = ioapi/include_files
 >  set xLib_4     = ioapi/lib
 EOF
-/home/centos/build/applydiff bldit_icon.csh blditfix -R
+/shared/singularity-cctm/applydiff bldit_icon.csh blditfix -R
 ./bldit_icon.csh gcc >& bldit_icon.log
 #
 #  CCTM
@@ -292,8 +284,8 @@ cat >blditfix << EOF
 ---
 >  echo "lib_4       ioapi/lib;"                                     >> \$Cfile
 EOF
-/home/centos/build/applydiff bldit_cctm.csh blditfix -R
+/shared/singularity-cctm/applydiff bldit_cctm.csh blditfix -R
 ./bldit_cctm.csh gcc >& bldit_cctm.log
 
-   echo "GCC 9.2 build of CMAQ"
+   echo "GCC build of CMAQ"
 

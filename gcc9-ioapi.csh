@@ -38,6 +38,12 @@ set echo
 ---
 > OMPFLAGS  = -fopenmp
 > OMPLIBS   = -fopenmp
+40,41c40,41
+<  -DNEED_ARGS=1 \
+<  -DIOAPI_NCF4=1
+---
+>  -DNEED_ARGS=1
+> PARFLAGS  =
 EOF
    /shared/singularity-cctm/applydiff Makeinclude.Linux2_x86_64 fpicfix -R
    #cd ..
@@ -61,7 +67,7 @@ EOF
    cd ..
    sudo cp -p bin/* /usr/lib64/bin
    sudo cp -p lib/* /usr/lib64/lib
-   sudo cp -p Linux2_x86_64/*.mod /usr/lib64/include
+   sudo cp -p Linux2_x86_64/*.mod /usr/include
 #  -------------------------------------------------------
 #  Only crusty old fixed source code should need the IOAPI
 #  EXT files. Newer code should be USE-ing a module.
