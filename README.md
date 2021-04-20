@@ -2,14 +2,20 @@
 
 Note: this requires that singularity is intalled
 To install use the following command
+
+```
 sudo yum update -y && \
     sudo yum install -y epel-release && \
     sudo yum update -y && \
     sudo yum install -y singularity-runtime singularity
+```
 
 you likely need to exit out of shell to get the path
 Then check the version
+
+```
 singularity --version
+```
     2.6.0-dist
 
 
