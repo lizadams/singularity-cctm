@@ -5,6 +5,7 @@
 #Total storage required is 44 G
 #Note, also download the smk_merge_dates_201512.txt file and installed under your ./emissions directory
 #https://github.com/lizadams/singularity-cctm/blob/main/smk_merge_dates_201512.txt
+#run this script from a directory named CONUS - so you can point to this directory
 
 setenv AWS_REGION "us-east-1"
 
