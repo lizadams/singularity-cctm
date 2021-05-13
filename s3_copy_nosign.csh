@@ -16,3 +16,5 @@ aws --no-sign-request s3 cp --recursive s3://edap-oar-data-commons/2016_Modeling
 aws --no-sign-request s3 cp --recursive --exclude "*" --include "12US1_surf.ncf" --include "2011_US1_soil.nc" --include "beld3_12US1_459X299_output_a.ncf" s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input ./land
 aws --no-sign-request s3 cp --recursive --exclude "*" --include "*151222*" --include "*151223*"  s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/BCON ./12US2/icbc
 aws --no-sign-request s3 cp --recursive --exclude "*" --include "*GRIDDESC*" s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/ ./12US2
+cd 12US2
+ln -s GRIDDESC_css GRIDDESC
