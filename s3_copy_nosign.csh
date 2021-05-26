@@ -11,7 +11,7 @@ setenv AWS_REGION "us-east-1"
 
 aws --no-sign-request s3 cp --recursive --exclude "*" --include "*151222" --include "*151223" s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/MCIP ./12US2/MCIP
 aws --no-sign-request s3 cp --recursive --exclude "*" --include "*151222*" --include "*151223*" s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/emissions ./12US2/emissions
-aws --no-sign-request s3 cp --recursive --exclude "*" --include "*151222*" --include "*151223*" --include "*stack_groups*" s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/12US2/emissions ./12US2/emissions
+aws --no-sign-request s3 cp --recursive --exclude "*" --include "*151222*" --include "*151223*" --include "*stack_groups*" s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/emissions ./12US2/emissions
 aws --no-sign-request s3 cp --recursive --exclude "*" --include "*160101*" --include "*160102*"  s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/emissions ./12US2/emissions
 aws --no-sign-request s3 cp --recursive s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input/emissions/othpt ./12US2/emissions/othpt
 aws --no-sign-request s3 cp --recursive --exclude "*" --include "12US1_surf.ncf" --include "2011_US1_soil.nc" --include "beld3_12US1_459X299_output_a.ncf" s3://edap-oar-data-commons/2016_Modeling_Platform/CMAQ_Input ./12US2/land
