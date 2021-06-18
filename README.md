@@ -103,6 +103,9 @@ As long as the gcc9.sif container is in the directory that you are running the b
 
 
 Note: here are the Open MPI configuration details for this container build:
+
+```
+
 Open MPI configuration:
 -----------------------
 Version: 3.1.4
@@ -152,3 +155,5 @@ OMPIO File Systems
 Generic Unix FS: yes
 Lustre: no
 PVFS2/OrangeFS: no
+
+```
