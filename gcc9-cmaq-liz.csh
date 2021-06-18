@@ -5,7 +5,7 @@
 #  -----------------------
 setenv IOAPI_DIR /shared/build/ioapi-3.2/lib
 setenv NETCDF_DIR /shared/build/netcdf/lib
-setenv NETCDFF_DIR /shared/build/netcdff/lib
+setenv NETCDFF_DIR /shared/build/netcdf/lib
 cd /shared/build/
 git clone -b 5.3.2_singularity https://github.com/lizadams/CMAQ.git CMAQ_REPO
 echo "downloaded CMAQ"
