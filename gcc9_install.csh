@@ -34,9 +34,8 @@
 #  ---------------------------
 #  Download and build netCDF-C
 #  ---------------------------
-   setenv DIR /usr/lib64
-   mkdir /shared/build
-   cd /shared/build
+   setenv DIR /shared/build
+   cd $DIR
    wget https://www.unidata.ucar.edu/downloads/netcdf/ftp/netcdf-c-4.7.1.tar.gz
    tar xvf netcdf-c-4.7.1.tar.gz
    rm -f netcdf-c-4.7.1.tar.gz
@@ -72,3 +71,10 @@
 # Test install
    nc-config --version
    nf-config --version
+
+# What I really need to do is edit the .cshrc
+if ( ! $?LD_LIBRARY_PATH ) then
+    setenv LD_LIBRARY_PATH /shared/build/netcdf
+else
+    setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:/shared/build/netcdf
+endif

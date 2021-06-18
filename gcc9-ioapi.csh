@@ -25,7 +25,7 @@ set echo
    cd ioapi
    setenv BIN Linux2_x86_64
    mkdir ../$BIN
-   setenv BASEDIR /shared/ioapi-3.2
+   setenv BASEDIR /shared/build/ioapi-3.2
    setenv HOME /shared/build
    cat >fpicfix <<EOF
 27c27
@@ -45,7 +45,7 @@ set echo
 >  -DNEED_ARGS=1
 > PARFLAGS  =
 EOF
-   /shared/singularity-cctm/applydiff Makeinclude.Linux2_x86_64 fpicfix -R
+   /shared/build/singularity-cctm/applydiff Makeinclude.Linux2_x86_64 fpicfix -R
    #cd ..
    cp Makefile.nocpl Makefile
    make >& make.ioapi.log
@@ -65,14 +65,14 @@ EOF
    cd ../Linux2_x86_64
    ln -s ../lib/libioapi.a
    cd ..
-   sudo cp -p bin/* /usr/lib64/bin
-   sudo cp -p lib/* /usr/lib64/lib
-   sudo cp -p Linux2_x86_64/*.mod /usr/include
+   sudo cp -p bin/* /shared/build/ioapi-3.2/bin
+   sudo cp -p lib/* /shared/build/ioapi-3.2/lib
+   sudo cp -p Linux2_x86_64/*.mod /shared/build/ioapi-3.2/include
 #  -------------------------------------------------------
 #  Only crusty old fixed source code should need the IOAPI
 #  EXT files. Newer code should be USE-ing a module.
 #  -------------------------------------------------------
-   sudo cp -p ioapi/fixed_src/*.EXT /usr/include
+   sudo cp -p ioapi/fixed_src/*.EXT /shared/build/ioapi-3.2/include
 
 #Note: when I tried to use m3diff, it complained
 #m3diff: error while loading shared libraries: libgfortran.so.5: cannot open shared object file: No such file or directory

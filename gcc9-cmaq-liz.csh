@@ -4,8 +4,8 @@
 #  Download and build CMAQ
 #  -----------------------
 setenv IOAPI_DIR /shared/build/ioapi-3.2/lib
-setenv NETCDF_DIR /usr/lib64/netcdf/lib
-setenv NETCDFF_DIR /usr/lib64/netcdff/lib
+setenv NETCDF_DIR /shared/build/netcdf/lib
+setenv NETCDFF_DIR /shared/build/netcdff/lib
 cd /shared/build/
 git clone -b 5.3.2_singularity https://github.com/lizadams/CMAQ.git CMAQ_REPO
 echo "downloaded CMAQ"
@@ -24,7 +24,7 @@ cat >blditfix <<EOF
 >  #set CMAQ_HOME = [your_install_path]/openmpi_4.0.1_gcc_9.1.0_debug
 >  set CMAQ_HOME = /home/username/CMAQ_Project
 EOF
-/shared/singularity-cctm/applydiff bldit_project.csh blditfix -R
+/shared/build/singularity-cctm/applydiff bldit_project.csh blditfix -R
 echo "ran applydiff"
 setenv HOME /shared/build
 #./bldit_project.csh
@@ -115,7 +115,7 @@ setenv HOME /shared/build
 >  if ( ! -e \$IOAPI_DIR/lib/m3utilio.mod ) then
 >     echo "ERROR: \$IOAPI_MOD_DIR/m3utilio.mod does not exist in your CMAQ_LIB directory!!! Check your installation before proceeding with CMAQ build."
 EOF
-/shared/singularity-cctm/applydiff config_cmaq.csh configfix -R
+/shared/build/singularity-cctm/applydiff config_cmaq.csh configfix -R
 #  -----------------------------------------------
 #  Fix the build scripts to remove redundant paths
 #  -----------------------------------------------
@@ -139,7 +139,7 @@ cat >cfgfix <<EOF
 >       Character( FLD_LEN ) :: netcdff_lib_dir
 >       Character( FLD_LEN ) :: mpi_lib_dir
 EOF
-/shared/singularity-cctm/applydiff cfg_module.f cfgfix -R
+/shared/build/singularity-cctm/applydiff cfg_module.f cfgfix -R
 cat >bldmakefix <<EOF
 313,316c313,316
 <       Call GETENV( 'IOAPI_DIR', ioapi_dir )
@@ -215,7 +215,7 @@ cat >bldmakefix <<EOF
 ---
 >                   Write( lfn, '(1x,a," = ",a)' ) pathMacro( i ), "\$(LIB)/mpi/include"
 EOF
-/shared/singularity-cctm/applydiff bldmake.f bldmakefix -R
+/shared/build/singularity-cctm/applydiff bldmake.f bldmakefix -R
 #
 #  BCON
 #
@@ -232,7 +232,7 @@ cat >blditfix << EOF
 >  set xLib_2     = ioapi/include_files
 >  set xLib_4     = ioapi/lib
 EOF
-/shared/singularity-cctm/applydiff bldit_bcon.csh blditfix -R
+/shared/build/singularity-cctm/applydiff bldit_bcon.csh blditfix -R
 ./bldit_bcon.csh gcc >& bldit_bcon.log
 #
 #  ICON
@@ -250,7 +250,7 @@ cat >blditfix << EOF
 >  set xLib_2     = ioapi/include_files
 >  set xLib_4     = ioapi/lib
 EOF
-/shared/singularity-cctm/applydiff bldit_icon.csh blditfix -R
+/shared/build/singularity-cctm/applydiff bldit_icon.csh blditfix -R
 ./bldit_icon.csh gcc >& bldit_icon.log
 #
 #  CCTM
@@ -284,7 +284,7 @@ cat >blditfix << EOF
 ---
 >  echo "lib_4       ioapi/lib;"                                     >> \$Cfile
 EOF
-/shared/singularity-cctm/applydiff bldit_cctm.csh blditfix -R
+/shared/build/singularity-cctm/applydiff bldit_cctm.csh blditfix -R
 ./bldit_cctm.csh gcc >& bldit_cctm.log
 
    echo "GCC build of CMAQ"
