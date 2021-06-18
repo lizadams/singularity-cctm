@@ -34,6 +34,7 @@
 #  ---------------------------
 #  Download and build netCDF-C
 #  ---------------------------
+   mkdir /shared/build
    setenv DIR /shared/build
    cd $DIR
    wget https://www.unidata.ucar.edu/downloads/netcdf/ftp/netcdf-c-4.7.1.tar.gz
