@@ -56,7 +56,7 @@
    tar xvf netcdf-fortran-4.5.2.tar.gz
    rm -f netcdf-fortran-4.5.2.tar.gz
    cd netcdf-fortran-4.5.2
-   setenv NCDIR /usr/lib64/netcdf
+   setenv NCDIR /shared/build/netcdf
    setenv CPPFLAGS -I${NCDIR}/include
    setenv LDFLAGS -L${NCDIR}/lib
    setenv LIBS "-lnetcdf"
