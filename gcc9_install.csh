@@ -70,12 +70,13 @@
    sudo make install
 
 # Test install
-   nc-config --version
-   nf-config --version
+cd /shared/build/netcdf/bin
+   ./nc-config --version
+   ./nf-config --version
 
 # What I really need to do is edit the .cshrc
 if ( ! $?LD_LIBRARY_PATH ) then
-    setenv LD_LIBRARY_PATH /shared/build/netcdf
+    setenv LD_LIBRARY_PATH /shared/build/netcdf/lib
 else
-    setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:/shared/build/netcdf
+    setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:/shared/build/netcdf/lib
 endif
