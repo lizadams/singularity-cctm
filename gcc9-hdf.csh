@@ -71,10 +71,10 @@ set echo
 #  Download and build Parallel netCDF
 #  ----------------------------------
    cd /shared/build-hdf5
-   wget https://parallel-netcdf.github.io/Release/pnetcdf-1.11.2.tar.gz
-   tar xvf pnetcdf-1.11.2.tar.gz
-   rm -f pnetcdf-1.11.2.tar.gz
-   cd pnetcdf-1.11.2
+   wget https://parallel-netcdf.github.io/Release/pnetcdf-1.12.1.tar.gz
+   tar xvf pnetcdf-1.12.1.tar.gz
+   rm -f pnetcdf-1.12.1.tar.gz
+   cd pnetcdf-1.12.1
    export CFLAGS="-O3 -fPIC"
    export FFLAGS="-O3 -fPIC"
    export CXXFLAGS="-O3 -fPIC"
