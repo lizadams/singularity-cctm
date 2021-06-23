@@ -1,3 +1,6 @@
+## Note, I have created a new S3 bucket that contains 2 days of inputs for the CONUS domain
+https://github.com/lizadams/singularity-cctm/blob/main/s3_copy_nosign_conus.csh
+
 # If you are runnning to conus domain after copying the input files from the S3 bucket
 # there is a file missing from the conus S3 bucket
 
