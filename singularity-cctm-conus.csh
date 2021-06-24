@@ -5,7 +5,7 @@
 #*********************************************************************
 # Data directory on host:  mounts onto container-directory "/opt/CMAQ_532/data"
 
-set HOSTDATA  = /home/centos/CONUS
+set HOSTDATA  = /shared/data/CONUS
 set CONTAINER = $cwd/gcc9-cmaq-liz.sif
 #set SCRIPTDIR = /home/centos/Scripts-CMAQ
 
@@ -51,6 +51,7 @@ setenv SINGULARITYENV_CTM_OCEAN_CHEM    N
 #mpirun -np 16 singularity -d exec \
 singularity -d exec \
  --bind ${HOSTDATA}:/usr/local/src/CMAQ_REPO/data \
+ --bind /opt/amazon/openmpi \
  ${CONTAINER} /usr/local/src/CMAQ_REPO/CCTM/scripts/run_cctm_singularity_conus.csh
 
 set err_status = ${status}
