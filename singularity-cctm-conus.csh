@@ -1,4 +1,7 @@
 #!/bin/csh -f
+#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=45
+#SBATCH -J CMAQ
 
 # ===================== Singularity "Run CCTM" Script =========================
 #   Not for batch use on "longleaf.unc.edu" etc. servers (see ../Scripts-BATCH)
@@ -6,7 +9,7 @@
 # Data directory on host:  mounts onto container-directory "/opt/CMAQ_532/data"
 
 set HOSTDATA  = /shared/data/CONUS
-set CONTAINER = $cwd/gcc9-cmaq-liz.sif
+set CONTAINER = $cwd/gcc9-cmaq-hostmpi.sif
 #set SCRIPTDIR = /home/centos/Scripts-CMAQ
 
 #   Set up environment for MPI-version ("mpich", "mvapich", or "openmpi"),
@@ -39,8 +42,8 @@ setenv SINGULARITYENV_TIME_STEP      10000
 setenv SINGULARITYENV_APPL          12US2
 setenv SINGULARITYENV_EMIS          2016fh
 setenv SINGULARITYENV_PROC          mpi
-setenv SINGULARITYENV_NPCOL         8
-setenv SINGULARITYENV_NPROW         4
+setenv SINGULARITYENV_NPCOL         9
+setenv SINGULARITYENV_NPROW         10 
 setenv SINGULARITYENV_NZ            35
 setenv SLURM_CPUS_ON_NODE 1
 setenv SINGULARITYENV_YYYYMM        201512
@@ -48,11 +51,11 @@ setenv SINGULARITYENV_CTM_ABFLUX    N
 setenv SINGULARITYENV_CTM_BIOGEMIS      N
 setenv SINGULARITYENV_CTM_OCEAN_CHEM    N
 
-#mpirun -np 16 singularity -d exec \
-singularity -d exec \
+mpirun -np 16 singularity -d exec \
+#singularity -d exec \
  --bind ${HOSTDATA}:/usr/local/src/CMAQ_REPO/data \
  --bind /opt/amazon/openmpi \
- ${CONTAINER} /usr/local/src/CMAQ_REPO/CCTM/scripts/run_cctm_singularity_conus.csh
+ ${CONTAINER} /usr/local/src/CMAQ_REPO/CCTM/scripts/run_singularity_mpionhost.csh
 
 set err_status = ${status}
 

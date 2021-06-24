@@ -36,7 +36,7 @@ export NETCDFF_DIR=/usr/local
 export PNETCDF_DIR=/usr/local
 export MPI_DIR=/opt/amazon/openmpi
 cd /usr/local/src
-git clone -b 5.3.2_singularity https://github.com/lizadams/CMAQ.git CMAQ_REPO
+git clone -b 5.3.2_singularity_orig https://github.com/lizadams/CMAQ.git CMAQ_REPO
 cd CMAQ_REPO
 export CMAQ_HOME=$PWD
 #  ----------------------------------------------------
