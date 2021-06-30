@@ -1,7 +1,7 @@
 # singularity-cctm
 
 Note: this requires that singularity is intalled
-To install use the following command
+To install use the following command (requires 1.2 G of storage)
 
 ```
 sudo yum update -y && \
