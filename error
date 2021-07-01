@@ -1,0 +1,53 @@
+sudo singularity build gcc9-ioapi-openmpi4.1.sif gcc9-ioapi-openmpi4.1.def
+INFO:    Starting build...
+INFO:    Verifying bootstrap image mpitest.openmpi.sif
+WARNING: integrity: signature not found for object group 1
+WARNING: Bootstrap image could not be verified, but build will continue.
+INFO:    Running setup scriptlet
+INFO:    Copying applydiff to /tmp/build-temp-163119118/rootfs/usr/local/bin/applydiff
+INFO:    Running post scriptlet
++ [ -z /.singularity.d/libs ]
++ export LD_LIBRARY_PATH=/.singularity.d/libs:/usr/local/lib
++ cd /usr/local/src
++ git clone --branch 20200828 https://github.com/cjcoats/ioapi-3.2.git
+Cloning into 'ioapi-3.2'...
+remote: Enumerating objects: 4084, done.
+remote: Counting objects: 100% (268/268), done.
+remote: Compressing objects: 100% (171/171), done.
+remote: Total 4084 (delta 175), reused 167 (delta 95), pack-reused 3816
+Receiving objects: 100% (4084/4084), 6.13 MiB | 30.45 MiB/s, done.
+Resolving deltas: 100% (2654/2654), done.
+Note: switching to 'ef5d5f4e112c249b593b19426421f25d79ae094b'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
++ cd ioapi-3.2
++ cp -p Makefile.template Makefile
++ export BIN=Linux2_x86_64
++ export BASEDIR=/usr/local/src/ioapi-3.2
++ export CPLMODE=nocpl
++ cd ioapi
++ cat
++ applydiff Makeinclude.Linux2_x86_64 fpicfix -R
++ cp Makefile.nocpl Makefile
++ export HOME=/usr/local/src
++ mkdir ../Linux2_x86_64
++ make
++ cd ..
++ cd m3tools
++ cp Makefile.nocpl Makefile
++ make
+FATAL:   While performing build: while running engine: exit status 2

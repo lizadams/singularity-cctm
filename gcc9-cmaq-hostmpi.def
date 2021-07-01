@@ -1,5 +1,5 @@
 Bootstrap: localimage
-From: gcc9-ioapi.sif
+From: gcc9.openmpi4.1.def
 
 # Help section
 %help
@@ -34,7 +34,7 @@ export IOAPI_DIR=/usr/local
 export NETCDF_DIR=/usr/local
 export NETCDFF_DIR=/usr/local
 export PNETCDF_DIR=/usr/local
-export MPI_DIR=/opt/amazon/openmpi
+export MPI_DIR=/opt
 cd /usr/local/src
 git clone -b 5.3.2_singularity_orig https://github.com/lizadams/CMAQ.git CMAQ_REPO
 cd CMAQ_REPO
