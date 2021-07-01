@@ -131,6 +131,7 @@ Intel SCIF: no
 Intel TrueScale (PSM): no
 Mellanox MXM: no
 Open UCX: no
+
 OpenFabrics OFI Libfabric: no
 OpenFabrics Verbs: no
 Portals4: no
@@ -157,3 +158,21 @@ Lustre: no
 PVFS2/OrangeFS: no
 
 ```
+
+### Need to modifying this running singularity tutorial on pcluster for csh
+https://qywu.github.io/2020/12/09/aws-slumr-pytorch.html
+
+The installation requires Golang. It is better to follow the steps on the singularity github repo to install the latest version. Also, check the Install.md for details.
+
+Note that we in a cluster now. We need to install for all the nodes in the cluster.
+
+# master's environment variable will affect 
+# the compute node's environment variable
+export VERSION=1.14.12 OS=linux ARCH=x86_64
+export NUM_NODES=2
+
+srun -N${NUM_NODES} wget -O /tmp/go${VERSION}.${OS}-${ARCH}.tar.gz \
+    https://dl.google.com/go/go${VERSION}.${OS}-${ARCH}.tar.gz
+
+srun -N${NUM_NODES} sudo tar -C /usr/local -xzf /tmp/go${VERSION}.${OS}-${ARCH}.tar.gz
+
