@@ -162,6 +162,7 @@ PVFS2/OrangeFS: no
 ### Need to modifying this running singularity tutorial on pcluster for csh
 https://qywu.github.io/2020/12/09/aws-slumr-pytorch.html
 
+```
 The installation requires Golang. It is better to follow the steps on the singularity github repo to install the latest version. Also, check the Install.md for details.
 
 Note that we in a cluster now. We need to install for all the nodes in the cluster.
@@ -176,3 +177,4 @@ srun -N${NUM_NODES} wget -O /tmp/go${VERSION}.${OS}-${ARCH}.tar.gz \
 
 srun -N${NUM_NODES} sudo tar -C /usr/local -xzf /tmp/go${VERSION}.${OS}-${ARCH}.tar.gz
 
+```
