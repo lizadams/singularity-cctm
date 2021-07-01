@@ -167,9 +167,14 @@ The installation requires Golang. It is better to follow the steps on the singul
 
 Note that we in a cluster now. We need to install for all the nodes in the cluster.
 
+The following instructions are for amd.
+These instructions may be better for CentOS, but I am not sure about how to install singularity on the compute nodes, and then have them not get terminated when idle in the queue.  It may be that we need to add the install commands to the parallel cluster config file, so the software is installed automatically.
+
+https://github.com/hpcng/singularity/blob/master/INSTALL.md
+
 # master's environment variable will affect 
 # the compute node's environment variable
-export VERSION=1.14.12 OS=linux ARCH=x86_64
+export VERSION=1.14.12 OS=linux ARCH=amd
 export NUM_NODES=2
 
 srun -N${NUM_NODES} wget -O /tmp/go${VERSION}.${OS}-${ARCH}.tar.gz \
